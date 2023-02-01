@@ -36,7 +36,7 @@ public class CompraRepository implements ICompraRepository{
 		
 		//jdbctemplateDB2.execute("INSERT INTO proveedor VALUES (12,'saslsls')" );
 		try {
-			String sql=String.format("INSERT INTO compra(descripcion) VALUES ('%s')",compra.getDescripcion());//Como el id es autoincremento no se le puede pasar el id
+			String sql=String.format("INSERT INTO compra(descripcion,categoria) VALUES ('%s',%d)",compra.getDescripcion(),compra.getCategoria());//Como el id es autoincremento no se le puede pasar el id
 			jdbctemplate.execute(sql);
 			
 		} catch (Exception e) {
@@ -51,17 +51,19 @@ public class CompraRepository implements ICompraRepository{
 	public boolean updateCompra(compradto c) {
 		// TODO Auto-generated method stub
 		String sql=String.format("UPDATE compra SET descripcion=('%s') WHERE id=('%d')",c.getDescripcion(),c.getId());
+		String sql2=String.format("UPDATE compra SET categoria=('%s') WHERE id=('%d')",c.getCategoria(),c.getId());
 		jdbctemplate.execute(sql);
+		jdbctemplate.execute(sql2);
 		return true;
-		//7ahaha
+		
 		
 	}
 
 	@Override
 	public List<compradto> getAllCompras() {
 		// TODO Auto-generated method stub
-		return jdbctemplate.query("SELECT * FROM compra", new CompraRowMapper());
-		
+		return jdbctemplate.query("SELECT descripcion,categorias.categoria FROM compra,categorias WHERE compra.categoria=categorias.Id", new CompraRowMapper());
+		//"SELECT descripcion,categorias.categoria FROM compra,categorias WHERE compra.categoria=categorias.Id
 		
 	}
 	

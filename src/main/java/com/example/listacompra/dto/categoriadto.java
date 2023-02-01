@@ -4,6 +4,7 @@ public class categoriadto {
 
 	private long id;
 	private String categoria;
+	
 	public long getId() {
 		return id;
 	}

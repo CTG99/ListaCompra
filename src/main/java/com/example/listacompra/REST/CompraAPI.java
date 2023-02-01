@@ -1,7 +1,8 @@
-/*package com.example.listacompra.REST;
+package com.example.listacompra.REST;
 
-import java.util.List; 
+import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -29,7 +30,12 @@ public class CompraAPI {
 	@Operation(summary="Obtiene todas las compras")
 	@GetMapping("/allCompras")
 	public ResponseEntity<List<compradto>> getCompras(){
-				return new ResponseEntity<List<compraDTO>>(compras,HttpStatus.OK);
+	if(Response.isEmpty()) {
+		return new ResponseEntity<List<compradto>>(compras,HttpStatus.OK);
+	}else {
+		return new ResponseEntity<List<compradto>>(compras,HttpStatus.NO_CONTENT);
+	}
+				
 	}
 	@CacheEvict(value="compras")
 	@ApiResponse(responseCode="400",description="Alguno de los objetos no ha sido encontrado")
@@ -48,7 +54,7 @@ public class CompraAPI {
 	}
 	
 	*/
-	
+}
 
 
 

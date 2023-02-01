@@ -30,6 +30,12 @@ public class WelcomeController {
 		
 	}
 	
+	/**
+	 * Shift + alt + J
+	 * Para informar sobre el metodo
+	 * @param model
+	 * @return vista a pantalla compras
+	 */
 	@GetMapping("/go-to-lista")
 	public String goToLista(Model model) {
 		

@@ -21,7 +21,7 @@ public class MyErrorsController implements ErrorController{
 			
 		}case HttpServletResponse.SC_INTERNAL_SERVER_ERROR:{
 			
-		return "500vista";
+		return "500error";
 			
 		}
 		default:{

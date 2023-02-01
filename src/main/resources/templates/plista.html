@@ -4,8 +4,8 @@
     <link rel="stylesheet" type="text/css" href="./CSSFiles/plistaCSS.css">
   </head>
 <body>
-  <div class="d-flex flex-row  w-100 Contenedorgeneral">
-    <div class="margen"><p class="margen">fff</p></div>
+  <div class="d-flex flex-row   Contenedorgeneral">
+    
     <div>
     <div>
       <a class="btn btn-primary" href="/add-producto" role="button">Incluir producto</a>
@@ -22,7 +22,7 @@
             <tbody>
               <tr th:each="p: ${productos}">
                 <td th:text="${p.descripcion}"></td>
-
+                <td th:text="${p.categoria}"></td>
 
                 <td>
                 <a type="button" class="btn btn-success"
