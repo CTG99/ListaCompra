@@ -46,11 +46,13 @@ public class WelcomeController {
 		model.addAttribute("productos",listacompras);*/
 		
 		model.addAttribute("productos",comprarepository.getAllCompras());
+		//model.addAttribute("categorias",comprarepository.getAllCategorias());
 		
 		
 		return "plista";
 		
 	}
+	
 	@GetMapping("/add-producto")
 	public String goToFormProducto(Model model) {
 		
@@ -143,5 +145,5 @@ public class WelcomeController {
 	public String showError404Generic(Exception ex) {
 		return "404error";
 	}*/
-
+	
 }

@@ -36,7 +36,8 @@ public class CompraRepository implements ICompraRepository{
 		
 		//jdbctemplateDB2.execute("INSERT INTO proveedor VALUES (12,'saslsls')" );
 		try {
-			String sql=String.format("INSERT INTO compra(descripcion,categoria) VALUES ('%s',%d)",compra.getDescripcion(),compra.getCategoria());//Como el id es autoincremento no se le puede pasar el id
+			String sql=String.format("INSERT INTO compra(descripcion,categoria,enable) VALUES ('%s','%d',1)",compra.getDescripcion(),Integer.parseInt(compra.getCategoria()));
+			//	String sql=String.format("INSERT INTO compra(descripcion,categoria) VALUES ('%s',%d)",compra.getDescripcion(),compra.getCategoria());//Como el id es autoincremento no se le puede pasar el id
 			jdbctemplate.execute(sql);
 			
 		} catch (Exception e) {
@@ -62,29 +63,27 @@ public class CompraRepository implements ICompraRepository{
 	@Override
 	public List<compradto> getAllCompras() {
 		// TODO Auto-generated method stub
-		return jdbctemplate.query("SELECT descripcion,categorias.categoria FROM compra,categorias WHERE compra.categoria=categorias.Id", new CompraRowMapper());
-		//"SELECT descripcion,categorias.categoria FROM compra,categorias WHERE compra.categoria=categorias.Id
+		return jdbctemplate.query("SELECT compra.id,descripcion,categorias.categoria,categorias.Id,compra.enable FROM compra,categorias WHERE compra.categoria=categorias.Id AND enable=1", new CompraRowMapper());
+		//"SELECT id,descripcion,categorias.categoria FROM compra,categorias WHERE compras.categoria=categorias.Id
 		
 	}
 	
 	public List<categoriadto> getAllCategorias(){
-		return jdbctemplate.query("SELECT * FROM categoria", new CategoriaRowMapper());
+		return jdbctemplate.query("SELECT Id,descripcion,categoria FROM categoria", new CategoriaRowMapper());
 	}
 
 	@Override
 	public compradto getCompraById(int id) {
-		String d=String.format("SELECT * FROM compra WHERE id='%d'", id);
+		String d=String.format("SELECT compra.id,descripcion,categorias.categoria,categorias.Id,compra.enable FROM compra WHERE compra.categoria=categorias.Id and id='%d'", id);
 		return jdbctemplate.queryForObject(d,new CompraRowMapper());
 	
-		
-		
 	}
 
 	@Override
 	public boolean deleteCompra(int id) {
 		// TODO Auto-generated method stub
 		try {
-		String sql=String.format("DELETE FROM compra WHERE id=(%d)",id);
+		String sql=String.format("UPDATE compra SET enable=0  WHERE id=(%d)",id);
 		jdbctemplate.execute(sql);
 		return true;
 	} catch (Exception e) {
@@ -96,7 +95,7 @@ public class CompraRepository implements ICompraRepository{
 
 	@Override
 	public List<categoriadto> getCategorias() {
-		 return jdbctemplate.query("SELECT * FROM categorias", new CategoriaRowMapper());
+		 return jdbctemplate.query("SELECT Id,descripcion,categoria FROM categorias", new CategoriaRowMapper());
 		
 	}
 

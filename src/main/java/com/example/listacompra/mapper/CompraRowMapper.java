@@ -15,10 +15,16 @@ public class CompraRowMapper implements RowMapper<compradto>{
 		// TODO Auto-generated method stub
 		
 		compradto compra= new compradto();
-		compra.setId(rs.getInt(1));
+		compra.setId(rs.getLong(1));
 		compra.setDescripcion(rs.getString(2));//El 2 es el numero de la columna en este caso "descripcion"
+		compra.setCategoria(rs.getString(3));
+		compra.setImageURL(rs.getString(4));
+		compra.setEnable(rs.getBoolean(5));
+		
 		return compra;
 	}
+	
+	
 
 }
 
