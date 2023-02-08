@@ -72,7 +72,9 @@ public class RecetasService {
 
 	public RecetaDTO getIngredientsByIdMeal(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		Gson gson=new Gson();
+		RecetasResponseDTO recetas=gson.fromJson(id, RecetasResponseDTO.class);
+		return recetas;
 	}
 
 }
